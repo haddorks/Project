@@ -18,6 +18,9 @@
       flex-direction: column;
     }
 
+    body * { pointer-events: none; }
+    .box * { pointer-events: auto; }
+
     .mountain {
       position: absolute;
       bottom: 0;
@@ -59,7 +62,6 @@
     .cable {
       position: absolute;
       top: 6%;
-      left: 0;
       width: 100%;
       height: 3px;
       background: white;
@@ -90,11 +92,11 @@
       left: 50%;
       transform: translateX(-50%);
       width: 60%;
-      text-align: center;
       background: rgba(255,255,255,0.15);
       backdrop-filter: blur(10px);
       padding: 40px;
       border-radius: 25px;
+      text-align: center;
       animation: fadeIn 2s ease;
     }
 
@@ -103,51 +105,58 @@
       to { opacity: 1; transform: translate(-50%, 0); }
     }
 
+    p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin: 10px 0;
+    }
+
     .btn {
       padding: 12px 25px;
       font-size: 18px;
       border-radius: 10px;
       border: none;
       cursor: pointer;
-      transition: 0.3s;
     }
 
     #yes { background: #ff6f91; color: white; }
     #no { background: #ccc; color: #333; }
 
-    .no-hint { font-size: 0.9rem; opacity: 0.8; margin-top: 15px; }
-
-    .confetti, .hearts, .glitter { position: absolute; pointer-events: none; }
+    .no-hint {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-top: 15px;
+      font-style: italic;
+    }
   </style>
 </head>
 
 <body>
 
-<!-- DESKTOP GATE -->
+<!-- DESKTOP ONLY GATE -->
 <script>
-  function isDesktop() {
-    return window.innerWidth >= 1024 && window.matchMedia("(pointer:fine)").matches;
-  }
-
-  if (!isDesktop()) {
+  if (window.innerWidth < 1024 || !window.matchMedia("(pointer:fine)").matches) {
     document.body.innerHTML = `
       <style>
         body {
-          margin:0; height:100vh;
-          display:flex; justify-content:center; align-items:center;
+          height:100vh;
+          display:flex;
+          justify-content:center;
+          align-items:center;
           background: linear-gradient(135deg,#0a2a43,#1e4d7b);
-          color:white; font-family:Georgia,serif; text-align:center;
+          color:white;
+          font-family:Georgia,serif;
+          text-align:center;
         }
         .msg {
           background: rgba(255,255,255,0.15);
-          backdrop-filter: blur(10px);
-          padding:40px; border-radius:20px;
+          padding:40px;
+          border-radius:20px;
         }
       </style>
       <div class="msg">
         <h1>💻 Desktop Only</h1>
-        <p>This experience is designed for laptops/desktops.</p>
-        <p>Please open this link on a computer.</p>
+        <p>Please open this experience on a laptop or desktop browser.</p>
       </div>
     `;
   }
@@ -158,7 +167,7 @@
 
 <script>
   for (let i = 0; i < 90; i++) {
-    let snow = document.createElement("div");
+    const snow = document.createElement("div");
     snow.className = "snow";
     snow.style.left = Math.random() * 100 + "vw";
     snow.style.animationDuration = 3 + Math.random() * 5 + "s";
@@ -178,13 +187,28 @@
 
 <div class="box">
   <h1>Hi Dishika 💕</h1>
-  <p>There are so many things I never said...</p>
-  <h1>Would you like to go on a Date with me?</h1>
+
+  <p>There are so many things I never said.<br>
+  Not because I didn't feel them,<br>
+  but because some feelings are easier to keep than explain.</p>
+
+  <p>Like how your messages calm me.<br>
+  Even on days when nothing else does.</p>
+
+  <p>How your smile stays in my head<br>
+  longer than it probably should.</p>
+
+  <p>How talking to you feels… easy.<br>
+  No pretending. No effort. Just natural.</p>
+
+  <h1 style="margin-top:20px;">Would you like to go on a Date with me?</h1>
+
   <div style="margin-top:20px;">
     <button class="btn" id="yes" onclick="yesClick()">Yes</button>
     <button class="btn" id="no" onmouseover="moveNo()">No</button>
   </div>
-  <div class="no-hint">*(No is not an option 😉)*</div>
+
+  <div class="no-hint">*(psst... No is not an option 😉)*</div>
 </div>
 
 <audio autoplay loop>
